@@ -32,8 +32,3 @@ function App() {
 
 export default App;
 
-// components/Welcome.jsx
-function Welcome() {
-  return <h2>Hello, Om!</h2>;
-}
-export default Welcome;
