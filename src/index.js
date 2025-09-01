@@ -3,6 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Welcome from "./components/Welcome";
+import Greeting from "./components/Greeting";
+import Counter from "./components/Counter";
+import Message from "./components/Message";
+import Status from "./components/Status";
+import NameList from "./components/NameList";
+import ContactForm from "./components/ContactForm";
+import Parent from "./components/Parent";
+import Timer from "./components/Timer";
+import Card from "./components/Card";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
