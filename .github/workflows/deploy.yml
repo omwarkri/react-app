@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main   # jab bhi main branch pe push hoga
+      - main # sirf main branch pe push hoga to ye chalega
 
 jobs:
   build-and-deploy:
@@ -16,21 +16,23 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-react-app:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:latest \
+                       -t ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:${{ github.sha }} .
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-react-app:${{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:${{ github.sha }}
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'latest'
+          version: "latest"
 
       - name: Configure Kubeconfig
         run: |
@@ -39,5 +41,6 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/react-app-deployment react-app-container=${{ secrets.DOCKER_USERNAME }}/my-react-app:${{ github.sha }}
+          kubectl set image deployment/react-app-deployment \
+            react-app-container=${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:latest
           kubectl rollout status deployment/react-app-deployment
