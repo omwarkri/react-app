@@ -1,6 +1,7 @@
 // Dashboard.js
 import React, { useContext } from 'react';
 import { AuthContext } from '../../App';
+import { useAuth } from "../../hooks/useAuth";
 
 function Dashboard() {
   const { user, setUser } = useContext(AuthContext);

@@ -19,7 +19,9 @@ import Register from "./components/pages/Register";
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
 
 import { AuthContext } from '../../App';
-import { useContext } from 'react';
+
+
+
 
 function App() {
   const [user, setUser] = useState(null);
